@@ -1,0 +1,33 @@
+;; What this occupation's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a data-intake and report-printing robot performs
+;; dataset scanning, report binding and physical archival (ISCO 3314
+;; statistical, mathematical and related associate professionals). Its
+;; physical work: thermal (hot-melt) binding of printed reports, and lifting
+;; bound report stacks onto the archive shelf.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-3314"
+ :cases
+ [{:id :hot-melt-spine-binding
+   :kind :thermal
+   :procedure "binder platen (held at 180 °C) melts a 2 mm hot-melt glue strip at the report spine; glue face against the paper block (taken adiabatic)"
+   :params {:thickness-m 0.002 :conductivity-w-mk 0.2 :density-kg-m3 950.0 :specific-heat-j-kgk 2000.0
+            :t0-c 22.0 :t-hot-c 180.0 :front-fixed? true :h-back-w-m2k 0.0 :t-back-ambient-c 22.0
+            :threshold-c 120.0}
+   :sweep {:param :duration-s :values [10.0 20.0 30.0 45.0 60.0 90.0]}
+   :quantity :final-back-c
+   :limit {:min 120.0 :basis "estimate: the glue must be fluid through to the paper face to wet the page edges; 120 °C taken as the working melt temperature of an EVA binding glue"}
+   :boundary {:lo 5.0 :hi 120.0}}
+  {:id :bound-reports-to-archive
+   :kind :manipulator
+   :procedure "arm lifts a stack of bound reports from the binder exit to the archive shelf"
+   :params {:l1-m 0.40 :l2-m 0.35 :m1-kg 3.5 :m2-kg 2.5
+            :from [0.50 0.10] :to [0.20 0.60] :duration-s 2.0 :steps 400}
+   :sweep {:param :payload-kg :values [0.5 1.0 2.0 4.0 6.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 45.0 :basis "estimate: continuous shoulder torque of a light (~4 kg-payload) collaborative arm"}
+   :boundary {:lo 0.1 :hi 20.0}}]}
