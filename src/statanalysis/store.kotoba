@@ -1,6 +1,6 @@
 (ns statanalysis.store
   "SSoT for the ISCO-08 3314 independent statistical and data analysis
-  practice actor (itonami actor pattern, ADR-2607011000 / CLAUDE.md Actors
+  practice actor (itonami actor pattern, ADR-2607011000 / AGENTS.md Actors
   section; README's 'Robotics premise' — a data-intake and report-printing
   robot performs dataset scanning, report binding and physical archival under
   this advisor/governor pair, which never dispatches hardware itself and never
